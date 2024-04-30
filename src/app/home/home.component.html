@@ -1,0 +1,68 @@
+<div class="home-container">
+    <!-- CABEÇALHO -->
+    <header>
+        <img src="../../assets/digidex.png" class="logo">
+    </header>
+    <!-- END CABEÇALHO -->
+    
+    <!-- PESQUISA -->
+    <div class="search-container">
+        <input type="text" class="search" placeholder="Buscar" [(ngModel)]="searchTerm" (keyup)="search(searchTerm)">
+        <img src="../../assets/search.png" class="search-icon">
+    </div>
+    <!-- END PESQUISA -->
+
+    <!-- FILTRO -->
+    <div class="filter-container">
+        <button class="filterButton" (click)="searchLevel('All')" [style.backgroundColor]="selectedLevel === 'All' ? '#008CC7' : ''">Todos</button>
+        <button class="filterButton" (click)="searchLevel('Fresh')" [style.backgroundColor]="selectedLevel === 'Fresh' ? '#008CC7' : ''">Fresh</button>
+        <button class="filterButton" (click)="searchLevel('In Training')" [style.backgroundColor]="selectedLevel === 'In Training' ? '#008CC7' : ''">In Training</button>
+        <button class="filterButton" (click)="searchLevel('Rookie')" [style.backgroundColor]="selectedLevel === 'Rookie' ? '#008CC7' : ''">Rookie</button>
+        <button class="filterButton" (click)="searchLevel('Champion')" [style.backgroundColor]="selectedLevel === 'Champion' ? '#008CC7' : ''">Champion</button>
+        <button class="filterButton" (click)="searchLevel('Mega')" [style.backgroundColor]="selectedLevel === 'Mega' ? '#008CC7' : ''">Mega</button>
+        <button class="filterButton" (click)="searchLevel('Ultimate')" [style.backgroundColor]="selectedLevel === 'Ultimate' ? '#008CC7' : ''">Ultimate</button>
+    </div>
+    <!-- END FILTRO -->
+
+    <!-- DIGIDEX -->
+    <div class="digidex-container">
+        <div class="digidex-card" *ngFor="let digimon of paginatedDigimons">
+            <h1 class="digiName">{{digimon.name}}</h1>
+            <img [src]="digimon.img" class="digidex-img">
+            <button class="details" (click)="openModalDetails(digimon)">Ver detalhes</button>
+        </div>
+    </div>
+    <!-- END DIGIDEX -->
+
+    <!-- PAGINAÇÃO -->
+    <div class="pagination-controls">
+        <button class="buttonPrevNext" (click)="goToPreviousPage()" *ngIf="currentPage > 0">Anterior</button>
+        <button class="buttonPrevNext" (click)="goToNextPage()" *ngIf="digimons.length > (currentPage + 1) * itemsPerPage">Próximo</button>
+    </div>
+    <!-- END PAGINAÇÃO -->
+</div>
+
+<!-- MODAL DO DIGIMON -->
+<div class="modalDetails" *ngIf="modalOpen">
+    <div class="modalContent">
+        <div class="divClose" (click)="closeModalDetails()">
+            <p>&times;</p>
+        </div>
+        <h1 class="digiName">{{selectedDigimon.name}}</h1>
+        <img [src]="selectedDigimon.img" class="digidex-img">
+        <div class="descriptionContainer">
+
+            <div class="typeContainer">
+                <p><span class="circleType"></span> {{selectedDigimon.level}}</p>
+            </div>
+
+            <p><span style="font-weight: bold; color: black;">Descrição:</span> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nulla eros, pulvinar id magna sed, sagittis tempus elit. Nulla lacinia laoreet  magna quis maximus. Morbi non arcu ullamcorper justo commodo feugiat a  id tellus. Ut id scelerisque urna. In eu nunc venenatis, lobortis ipsum vitae, sagittis quam.</p>
+        </div>
+    </div> 
+</div>
+<!-- END MODAL DO DIGIMON -->
+
+<!-- <audio autoplay loop>
+    <source src="../../assets/music.mp3" type="audio/mpeg">
+    Seu navegador não suporta o elemento de áudio.
+</audio> -->
